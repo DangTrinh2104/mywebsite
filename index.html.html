@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Điện máy Toàn Liên — Sửa chữa thiết bị điện dân dụng & đóng pin lithium</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --primary: #1565c0;
+    --primary-dark: #0d47a1;
+    --accent: #ff9800;
+    --accent-dark: #ef6c00;
+    --bg: #f5f7fb;
+    --surface: #ffffff;
+    --surface-2: #eef2f8;
+    --text: #1a2233;
+    --text-dim: #5e6a82;
+    --border: #dde3ed;
+    --green: #2e9e5b;
+    --danger: #e53935;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, "Segoe UI", "Helvetica Neue", sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.6;
+  }
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; }
+
+  /* Nav */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+    padding: 12px 0;
+  }
+  nav .container { display: flex; align-items: center; gap: 18px; }
+  .logo {
+    font-size: 1.4rem; font-weight: 800; color: var(--primary);
+    display: flex; align-items: center; gap: 6px; white-space: nowrap;
+  }
+  .logo::before { content: "⚡"; color: var(--accent); }
+  .nav-menu { display: flex; gap: 22px; margin-left: 20px; }
+  .nav-menu a {
+    color: var(--text-dim); font-weight: 600; font-size: 0.95rem;
+    transition: color 0.18s;
+  }
+  .nav-menu a:hover { color: var(--primary); }
+  .nav-cta { margin-left: auto; display: flex; gap: 10px; align-items: center; }
+  .acct-area { display: flex; gap: 8px; align-items: center; }
+  .acct-name { font-size: 0.85rem; font-weight: 700; color: var(--text); white-space: nowrap; }
+  .hotline-pill {
+    background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    color: #fff; padding: 9px 16px; border-radius: 24px;
+    font-weight: 700; font-size: 0.92rem; display: flex; align-items: center; gap: 6px;
+  }
+  .btn {
+    border: none; padding: 10px 18px; border-radius: 8px;
+    font-weight: 700; font-size: 0.92rem; cursor: pointer;
+    transition: all 0.18s; white-space: nowrap;
+  }
+  .btn-primary { background: var(--primary); color: #fff; }
+  .btn-primary:hover { background: var(--primary-dark); }
+  .btn-accent { background: var(--accent); color: #fff; }
+  .btn-accent:hover { background: var(--accent-dark); }
+  .btn-outline {
+    background: transparent; color: var(--primary); border: 2px solid var(--primary);
+  }
+  .btn-outline:hover { background: var(--primary); color: #fff; }
+  .btn-ghost { background: var(--surface-2); color: var(--text); }
+  .btn-ghost:hover { background: var(--border); }
+  .btn-lg { padding: 13px 26px; font-size: 1rem; }
+  .hidden { display: none !important; }
+
+  /* Hero */
+  .hero {
+    position: relative; overflow: hidden;
+    padding: 70px 20px 80px;
+    background:
+      radial-gradient(circle at 15% 30%, rgba(21,101,192,0.12) 0%, transparent 55%),
+      radial-gradient(circle at 85% 70%, rgba(255,152,0,0.15) 0%, transparent 55%),
+      linear-gradient(180deg, #eaf2fc, #f5f7fb);
+    border-bottom: 1px solid var(--border);
+  }
+  .hero .container { display: grid; grid-template-columns: 1.1fr 1fr; gap: 50px; align-items: center; }
+  .hero-text h1 { font-size: 2.9rem; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 18px; }
+  .hero-text h1 span {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero-badge {
+    display: inline-block; background: rgba(21,101,192,0.1);
+    border: 1px solid rgba(21,101,192,0.25); color: var(--primary);
+    padding: 6px 14px; border-radius: 20px; font-size: 0.85rem;
+    font-weight: 600; margin-bottom: 18px;
+  }
+  .hero-text p { color: var(--text-dim); font-size: 1.08rem; margin-bottom: 28px; max-width: 560px; }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .hero-stats {
+    display: flex; gap: 36px; margin-top: 38px; flex-wrap: wrap;
+    padding-top: 28px; border-top: 1px solid var(--border);
+  }
+  .stat-num { font-size: 1.9rem; font-weight: 800; color: var(--primary); line-height: 1; }
+  .stat-label { color: var(--text-dim); font-size: 0.88rem; margin-top: 4px; }
+
+  .hero-visual {
+    background: var(--surface); border-radius: 20px; padding: 36px;
+    box-shadow: 0 20px 50px rgba(13,71,161,0.12);
+    border: 1px solid var(--border);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+  }
+  .visual-tile {
+    background: linear-gradient(135deg, #f7faff, #eef4fc);
+    border: 1px solid var(--border); border-radius: 14px;
+    padding: 18px 16px; text-align: center;
+  }
+  .visual-tile .icon { font-size: 2.4rem; display: block; margin-bottom: 6px; }
+  .visual-tile h5 { font-size: 0.92rem; margin-bottom: 4px; }
+  .visual-tile p { font-size: 0.78rem; color: var(--text-dim); }
+  .visual-tile.featured {
+    background: linear-gradient(135deg, var(--primary), #1976d2);
+    color: #fff; border-color: var(--primary-dark); grid-column: 1 / -1;
+  }
+  .visual-tile.featured p { color: rgba(255,255,255,0.85); }
+
+  /* Tile có ảnh thật */
+  .visual-tile { position: relative; overflow: hidden; }
+  .tile-overlay {
+    position: absolute; inset: 0; z-index: 0; border-radius: inherit;
+    background: linear-gradient(to top, rgba(5,15,40,0.82) 0%, rgba(5,15,40,0.25) 55%, transparent 100%);
+  }
+  .visual-tile.has-img {
+    background-size: cover; background-position: center;
+    display: flex; flex-direction: column;
+    justify-content: flex-end; min-height: 110px;
+  }
+  .visual-tile.featured.has-img { min-height: 140px; }
+  .visual-tile.has-img .tile-icon { display: none; }
+  .visual-tile.has-img h5,
+  .visual-tile.has-img p {
+    position: relative; z-index: 1; color: #fff !important;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+  }
+
+  /* Sections */
+  section { padding: 70px 0; }
+  .section-title { text-align: center; max-width: 700px; margin: 0 auto 44px; }
+  .section-title .eyebrow {
+    color: var(--accent-dark); font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1px; font-size: 0.82rem;
+    margin-bottom: 10px; display: block;
+  }
+  .section-title h2 { font-size: 2.1rem; letter-spacing: -0.3px; margin-bottom: 12px; }
+  .section-title p { color: var(--text-dim); font-size: 1.02rem; }
+  .section-head-row {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 24px; gap: 14px; flex-wrap: wrap;
+  }
+
+  /* Services */
+  #services { background: var(--surface); }
+  .svc-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px;
+  }
+  .svc {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; overflow: hidden;
+    transition: all 0.2s; display: flex; flex-direction: column;
+    position: relative;
+  }
+  .svc:hover {
+    transform: translateY(-4px); border-color: var(--primary);
+    box-shadow: 0 14px 30px rgba(13,71,161,0.1);
+  }
+  .svc-img {
+    width: 100%; aspect-ratio: 16/10;
+    background: linear-gradient(135deg, rgba(21,101,192,0.1), rgba(255,152,0,0.12));
+    background-size: cover; background-position: center;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 4rem; position: relative;
+  }
+  .svc-edit {
+    position: absolute; top: 12px; right: 12px;
+    width: 36px; height: 36px; border-radius: 8px;
+    background: rgba(255,255,255,0.95); border: 1px solid var(--border);
+    cursor: pointer; font-size: 1rem; line-height: 1;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+  }
+  .svc-edit:hover { border-color: var(--primary); }
+  .svc-content { padding: 24px; display: flex; flex-direction: column; flex: 1; }
+  .svc-content h3 { font-size: 1.15rem; margin-bottom: 8px; }
+  .svc-content p.svc-desc { color: var(--text-dim); font-size: 0.92rem; margin-bottom: 14px; }
+  .svc-content ul { list-style: none; margin-bottom: 20px; flex: 1; }
+  .svc-content ul li {
+    padding: 5px 0; color: var(--text-dim); font-size: 0.88rem;
+    display: flex; gap: 8px; align-items: flex-start;
+  }
+  .svc-content ul li::before { content: "✓"; color: var(--green); font-weight: 700; flex-shrink: 0; }
+  .svc-cta {
+    background: var(--primary); color: #fff; border: none;
+    padding: 11px 18px; border-radius: 8px; font-weight: 700;
+    font-size: 0.92rem; cursor: pointer; transition: background 0.18s;
+    align-self: flex-start;
+  }
+  .svc-cta:hover { background: var(--primary-dark); }
+
+  /* Process */
+  .process-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 22px; counter-reset: step;
+  }
+  .step {
+    position: relative;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 28px 22px 22px; text-align: center;
+    counter-increment: step;
+  }
+  .step::before {
+    content: counter(step, decimal-leading-zero);
+    position: absolute; top: -16px; left: 50%; transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: #fff; font-weight: 800; font-size: 0.85rem;
+    padding: 5px 14px; border-radius: 14px; letter-spacing: 1px;
+  }
+  .step-icon { font-size: 2.2rem; margin-bottom: 10px; }
+  .step h4 { font-size: 1rem; margin-bottom: 6px; }
+  .step p { color: var(--text-dim); font-size: 0.88rem; }
+
+  /* Features */
+  #why-us { background: var(--surface); }
+  .feat-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 22px;
+  }
+  .feat {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 22px;
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+  .feat-icon {
+    flex-shrink: 0; width: 44px; height: 44px; border-radius: 12px;
+    background: rgba(21,101,192,0.1); color: var(--primary);
+    display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
+  }
+  .feat h4 { font-size: 1rem; margin-bottom: 5px; }
+  .feat p { color: var(--text-dim); font-size: 0.88rem; }
+
+  /* Testimonials */
+  .testi-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px;
+  }
+  .testi { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 24px; }
+  .testi-stars { color: var(--accent); margin-bottom: 10px; font-size: 1rem; }
+  .testi p { color: var(--text); font-size: 0.95rem; margin-bottom: 14px; font-style: italic; }
+  .testi-author { display: flex; align-items: center; gap: 12px; }
+  .testi-avatar {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700;
+  }
+  .testi-name { font-weight: 700; font-size: 0.92rem; }
+  .testi-role { color: var(--text-dim); font-size: 0.82rem; }
+
+  /* Contact */
+  #contact { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: #fff; }
+  #contact .section-title { color: #fff; }
+  #contact .section-title .eyebrow { color: var(--accent); }
+  #contact .section-title p { color: rgba(255,255,255,0.85); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 36px; align-items: start; }
+  .contact-info { display: flex; flex-direction: column; gap: 18px; }
+  .info-card {
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 14px; padding: 20px;
+    display: flex; gap: 14px; align-items: flex-start; backdrop-filter: blur(6px);
+  }
+  .info-icon {
+    flex-shrink: 0; width: 44px; height: 44px; border-radius: 12px;
+    background: var(--accent); color: #fff;
+    display: flex; align-items: center; justify-content: center; font-size: 1.4rem;
+  }
+  .info-card h4 { font-size: 1rem; margin-bottom: 4px; }
+  .info-card p { color: rgba(255,255,255,0.85); font-size: 0.92rem; }
+  .info-card a { color: #fff; font-weight: 700; }
+
+  .booking-form {
+    background: var(--surface); color: var(--text);
+    border-radius: 16px; padding: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+  }
+  .booking-form h3 { font-size: 1.3rem; margin-bottom: 6px; }
+  .booking-form > p { color: var(--text-dim); font-size: 0.92rem; margin-bottom: 20px; }
+  .form-group { margin-bottom: 14px; }
+  .form-group label { display: block; font-size: 0.86rem; font-weight: 600; margin-bottom: 5px; }
+  .form-group .req { color: var(--danger); }
+  .form-group input[type=text], .form-group input[type=tel], .form-group input[type=number],
+  .form-group input[type=password], .form-group select, .form-group textarea {
+    width: 100%; padding: 10px 13px;
+    border: 1px solid var(--border); border-radius: 8px;
+    background: var(--surface-2); color: var(--text);
+    font-size: 0.93rem; font-family: inherit;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none; border-color: var(--primary); background: var(--surface);
+  }
+  .form-group textarea { resize: vertical; min-height: 80px; }
+  .form-row { display: flex; gap: 12px; }
+  .form-row .form-group { flex: 1; }
+  .field-error { color: var(--danger); font-size: 0.78rem; margin-top: 3px; display: none; }
+  .form-group.invalid input, .form-group.invalid select, .form-group.invalid textarea { border-color: var(--danger); }
+  .form-group.invalid .field-error { display: block; }
+  .submit-btn { width: 100%; padding: 13px; font-size: 1rem; margin-top: 6px; }
+
+  /* Admin modals (drawer) */
+  .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 200; display: none; }
+  .overlay.open { display: block; }
+  .drawer {
+    position: fixed; top: 0; right: 0;
+    width: 100%; max-width: 500px; height: 100%;
+    background: var(--surface); border-left: 1px solid var(--border);
+    z-index: 201; transform: translateX(100%);
+    transition: transform 0.28s ease;
+    display: flex; flex-direction: column;
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer-head {
+    padding: 18px 20px; border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .drawer-head h3 { font-size: 1.15rem; }
+  .close-btn { background: none; border: none; color: var(--text-dim); font-size: 1.6rem; cursor: pointer; line-height: 1; }
+  .drawer-body { flex: 1; overflow-y: auto; padding: 20px; }
+  .drawer-foot { padding: 16px 20px; border-top: 1px solid var(--border); display: flex; gap: 10px; }
+  .drawer-foot .btn { flex: 1; padding: 11px; }
+
+  .img-upload { display: flex; gap: 14px; align-items: flex-start; }
+  .img-preview {
+    width: 110px; height: 70px; border-radius: 10px; flex-shrink: 0;
+    border: 1px solid var(--border); background: var(--surface-2);
+    background-size: cover; background-position: center;
+    display: flex; align-items: center; justify-content: center; font-size: 2rem;
+  }
+  .img-actions { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+  .img-actions .btn { width: fit-content; }
+  .img-hint { font-size: 0.76rem; color: var(--text-dim); }
+
+  .emoji-pick { display: flex; flex-wrap: wrap; gap: 6px; }
+  .emoji-opt {
+    width: 38px; height: 38px; font-size: 1.2rem;
+    border: 1px solid var(--border); border-radius: 8px;
+    background: var(--surface-2); cursor: pointer;
+  }
+  .emoji-opt.sel { border-color: var(--primary); background: #e3eefb; }
+  .danger-link {
+    background: none; border: none; color: var(--danger);
+    font-size: 0.88rem; font-weight: 600; cursor: pointer; padding: 6px 0;
+  }
+  .danger-link:hover { text-decoration: underline; }
+
+  /* Login modal (centered) */
+  .login-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+    z-index: 210; display: none; align-items: center; justify-content: center; padding: 20px;
+  }
+  .login-overlay.open { display: flex; }
+  .login-box {
+    background: var(--surface); border-radius: 14px;
+    width: 100%; max-width: 380px; overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+  }
+  #loginForm { padding: 20px; }
+  .login-error { color: var(--danger); font-size: 0.83rem; margin-bottom: 10px; display: none; }
+  .login-error.show { display: block; }
+  .login-hint {
+    text-align: center; font-size: 0.82rem; color: var(--text-dim);
+    margin-top: 14px; background: var(--surface-2); padding: 8px; border-radius: 8px;
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed; bottom: 24px; left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #1a2233; color: #fff;
+    padding: 13px 24px; border-radius: 10px;
+    font-size: 0.92rem; font-weight: 600;
+    opacity: 0; pointer-events: none;
+    transition: all 0.25s; z-index: 300; max-width: 90%;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .toast.success { background: var(--green); }
+
+  /* Footer */
+  footer { background: #0f1828; color: #cfd6e3; padding: 44px 0 24px; }
+  .foot-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 36px; margin-bottom: 30px; }
+  .foot-col h5 { color: #fff; font-size: 1rem; margin-bottom: 14px; }
+  .foot-col p, .foot-col a { color: #9aa5b8; font-size: 0.9rem; line-height: 1.9; }
+  .foot-col a:hover { color: #fff; }
+  .foot-col ul { list-style: none; }
+  .foot-brand { font-size: 1.4rem; font-weight: 800; color: #fff; margin-bottom: 10px; }
+  .foot-brand::before { content: "⚡ "; color: var(--accent); }
+  .foot-bottom { padding-top: 22px; border-top: 1px solid #1f2c44; text-align: center; font-size: 0.85rem; color: #7c8699; }
+
+  @media (max-width: 900px) {
+    .hero { padding: 50px 20px; }
+    .hero .container { grid-template-columns: 1fr; gap: 36px; }
+    .hero-text h1 { font-size: 2.2rem; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .foot-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+    .nav-menu { display: none; }
+  }
+  @media (max-width: 560px) {
+    .hero-text h1 { font-size: 1.8rem; }
+    .section-title h2 { font-size: 1.6rem; }
+    .foot-grid { grid-template-columns: 1fr; }
+    .hotline-pill .label { display: none; }
+    .form-row { flex-direction: column; gap: 0; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="#" class="logo">Điện máy Toàn Liên</a>
+    <div class="nav-menu">
+      <a href="#services">Dịch vụ</a>
+      <a href="#process">Quy trình</a>
+      <a href="#why-us">Vì sao chọn</a>
+      <a href="#testimonials">Khách hàng</a>
+      <a href="#contact">Liên hệ</a>
+    </div>
+    <div class="nav-cta">
+      <a href="tel:0979528254" class="hotline-pill">📞 <span class="label">0979 528 254</span></a>
+      <a href="#contact" class="btn btn-primary">Đặt lịch</a>
+      <div class="acct-area" id="acctArea"></div>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <div class="hero-text">
+      <span class="hero-badge">🛠️ Phục vụ Hải Phòng & các tỉnh lân cận</span>
+      <h1>Sửa chữa <span>thiết bị điện</span> & đóng pin lithium tận nơi</h1>
+      <p>Nhận sửa nồi cơm điện, bếp từ, thiết bị cầm tay và đóng pin lithium chất lượng cao cho máy khoan, xe đạp điện. Thợ chuyên 10+ năm, bảo hành rõ ràng.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-accent btn-lg">📅 Đặt lịch sửa ngay</a>
+        <a href="#services" class="btn btn-outline btn-lg">Xem dịch vụ</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-num">10+</div><div class="stat-label">Năm kinh nghiệm</div></div>
+        <div><div class="stat-num">1.000+</div><div class="stat-label">Thiết bị đã sửa</div></div>
+        <div><div class="stat-num">6 tháng</div><div class="stat-label">Bảo hành pin</div></div>
+        <div><div class="stat-num">24/7</div><div class="stat-label">Hotline hỗ trợ</div></div>
+      </div>
+    </div>
+    <div class="hero-visual" id="heroVisual"></div>
+  </div>
+</header>
+
+<section id="services">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">Dịch vụ của chúng tôi</span>
+      <h2>Sửa chữa toàn diện thiết bị điện dân dụng</h2>
+      <p>Từ nồi cơm gia đình đến pin lithium cao áp — đội kỹ thuật xử lý đầy đủ các sự cố thường gặp.</p>
+    </div>
+    <div class="section-head-row">
+      <div></div>
+      <button class="btn btn-primary hidden" id="addSvcBtn">➕ Thêm dịch vụ mới</button>
+    </div>
+    <div class="svc-grid" id="svcGrid"></div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">Quy trình làm việc</span>
+      <h2>4 bước đơn giản — minh bạch từ đầu đến cuối</h2>
+      <p>Khách hàng luôn biết rõ tình trạng máy trước khi chúng tôi tiến hành sửa chữa.</p>
+    </div>
+    <div class="process-grid">
+      <div class="step"><div class="step-icon">📞</div><h4>Liên hệ / Đặt lịch</h4><p>Gọi hotline 0979 528 254 hoặc gửi form trên web. Tư vấn miễn phí, hẹn giờ thuận tiện.</p></div>
+      <div class="step"><div class="step-icon">🔍</div><h4>Khảo sát & Báo giá</h4><p>Kỹ thuật viên kiểm tra trực tiếp, chẩn đoán, báo giá rõ ràng — khách đồng ý mới làm.</p></div>
+      <div class="step"><div class="step-icon">🛠️</div><h4>Sửa chữa / Đóng pin</h4><p>Sửa tại nhà với lỗi nhỏ; mang về xưởng cho lỗi phức tạp. Đóng pin theo yêu cầu cell và BMS.</p></div>
+      <div class="step"><div class="step-icon">✅</div><h4>Bàn giao & Bảo hành</h4><p>Test vận hành cùng khách, giao phiếu bảo hành 1–12 tháng tùy dịch vụ. Hỗ trợ trọn đời.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="why-us">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">Vì sao chọn chúng tôi</span>
+      <h2>Cam kết chất lượng — uy tín hơn 10 năm</h2>
+    </div>
+    <div class="feat-grid">
+      <div class="feat"><div class="feat-icon">👨‍🔧</div><div><h4>Thợ chuyên 10+ năm</h4><p>Đội ngũ được đào tạo bài bản, am hiểu mọi dòng máy.</p></div></div>
+      <div class="feat"><div class="feat-icon">🔩</div><div><h4>Linh kiện chính hãng</h4><p>Cell pin Samsung/LG/Panasonic, IC, IGBT đúng chuẩn.</p></div></div>
+      <div class="feat"><div class="feat-icon">🛡️</div><div><h4>Bảo hành rõ ràng</h4><p>Phiếu bảo hành 1–12 tháng, hỗ trợ kỹ thuật trọn đời.</p></div></div>
+      <div class="feat"><div class="feat-icon">💰</div><div><h4>Tư vấn minh bạch</h4><p>Khảo sát trước, không phát sinh, hoàn tiền nếu không sửa được.</p></div></div>
+      <div class="feat"><div class="feat-icon">🏠</div><div><h4>Sửa tận nơi</h4><p>Đến nhà trong 30–60 phút khu vực nội thành.</p></div></div>
+      <div class="feat"><div class="feat-icon">⏱️</div><div><h4>Đúng hẹn</h4><p>Cam kết thời gian hoàn thành, đền bù nếu trễ hẹn.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="testimonials">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">Khách hàng nói gì</span>
+      <h2>Hơn 1.000 khách hàng đã tin tưởng</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi">
+        <div class="testi-stars">★★★★★</div>
+        <p>"Đóng pin xe đạp điện 48V đi được hơn 70km, mạnh hơn pin zin nhiều. Thợ giải thích rất kỹ về cell và BMS."</p>
+        <div class="testi-author"><div class="testi-avatar">H</div><div><div class="testi-name">Anh Hùng</div><div class="testi-role">Thủy Nguyên, Hải Phòng</div></div></div>
+      </div>
+      <div class="testi">
+        <div class="testi-stars">★★★★★</div>
+        <p>"Bếp từ Bosch báo lỗi E5 hơn 2 tuần, mang đến tiệm khác báo thay nguyên bo 3 triệu. Bên này sửa IGBT là xong, dùng cả năm chưa hỏng lại."</p>
+        <div class="testi-author"><div class="testi-avatar">L</div><div><div class="testi-name">Chị Lan</div><div class="testi-role">Thiên Hương, Hải Phòng</div></div></div>
+      </div>
+      <div class="testi">
+        <div class="testi-stars">★★★★★</div>
+        <p>"Pin máy khoan Makita 18V đã mua đóng lại 3 năm trước vẫn còn dùng tốt. Cell xịn, BMS tốt, dòng xả mạnh như pin mới."</p>
+        <div class="testi-author"><div class="testi-avatar">T</div><div><div class="testi-name">Anh Tuấn</div><div class="testi-role">Hòa Bình, Hải Phòng</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <div class="section-title">
+      <span class="eyebrow">Liên hệ & Đặt lịch</span>
+      <h2>Cần sửa thiết bị? Gọi ngay hoặc gửi form</h2>
+      <p>Chúng tôi sẽ phản hồi trong vòng 15 phút trong giờ hành chính.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="info-card"><div class="info-icon">📞</div><div><h4>Hotline 24/7</h4><p><a href="tel:0979528254">0979 528 254</a> · <a href="tel:0965611302">0965 611 302</a></p></div></div>
+        <div class="info-card"><div class="info-icon">📍</div><div><h4>Xưởng & cửa hàng</h4><p>Ngã tư Vsip, Thủy Nguyên, Hải Phòng</p></div></div>
+        <div class="info-card"><div class="info-icon">🕐</div><div><h4>Giờ làm việc</h4><p>Thứ 2 – Chủ Nhật: 7:30 – 20:00<br>Sửa cấp cứu: 24/7</p></div></div>
+        <div class="info-card"><div class="info-icon">✉️</div><div><h4>Email</h4><p><a href="mailto:nguyentoan0590@gmail.com">nguyentoan0590@gmail.com</a><br><a href="mailto:dangtrinhtnhp@gmail.com">dangtrinhtnhp@gmail.com</a></p></div></div>
+      </div>
+
+      <form class="booking-form" id="bookingForm" novalidate>
+        <h3>📅 Đặt lịch sửa chữa</h3>
+        <p>Điền thông tin, kỹ thuật viên sẽ gọi lại xác nhận trong 15 phút.</p>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Họ và tên <span class="req">*</span></label>
+            <input type="text" id="bName" placeholder="Nguyễn Văn A">
+            <div class="field-error">Vui lòng nhập họ tên</div>
+          </div>
+          <div class="form-group">
+            <label>Số điện thoại <span class="req">*</span></label>
+            <input type="tel" id="bPhone" placeholder="0979 528 254">
+            <div class="field-error">Số điện thoại không hợp lệ</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Dịch vụ cần sử dụng <span class="req">*</span></label>
+          <select id="bService"></select>
+          <div class="field-error">Vui lòng chọn dịch vụ</div>
+        </div>
+        <div class="form-group">
+          <label>Địa chỉ</label>
+          <input type="text" id="bAddress" placeholder="Số nhà, đường, phường, quận">
+        </div>
+        <div class="form-group">
+          <label>Mô tả tình trạng thiết bị</label>
+          <textarea id="bMessage" placeholder="VD: Bếp từ báo lỗi E5, không vào điện..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-accent submit-btn">Gửi yêu cầu đặt lịch</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <div class="foot-brand">Điện máy Toàn Liên</div>
+        <p>Chuyên sửa chữa thiết bị điện dân dụng & đóng pin lithium chất lượng cao. Phục vụ hơn 1.000 khách hàng tại Hải Phòng và các tỉnh lân cận.</p>
+      </div>
+      <div class="foot-col"><h5>Dịch vụ</h5><ul>
+        <li><a href="#services">Sửa nồi cơm điện</a></li>
+        <li><a href="#services">Sửa bếp từ</a></li>
+        <li><a href="#services">Sửa thiết bị cầm tay</a></li>
+        <li><a href="#services">Đóng pin lithium</a></li>
+      </ul></div>
+      <div class="foot-col"><h5>Liên kết</h5><ul>
+        <li><a href="#process">Quy trình</a></li>
+        <li><a href="#why-us">Vì sao chọn</a></li>
+        <li><a href="#testimonials">Khách hàng</a></li>
+        <li><a href="#contact">Liên hệ</a></li>
+      </ul></div>
+      <div class="foot-col"><h5>Liên hệ</h5><p>
+        📞 0979 528 254 · 0965 611 302<br>
+        ✉️ nguyentoan0590@gmail.com<br>
+        ✉️ dangtrinhtnhp@gmail.com<br>
+        📍 Ngã tư Vsip, Thủy Nguyên, Hải Phòng<br>
+        🕐 7:30 – 20:00 mỗi ngày
+      </p></div>
+    </div>
+    <div class="foot-bottom">
+      © 2026 Điện máy Toàn Liên. Mọi quyền được bảo lưu. | Giấy phép kinh doanh: 0312345678
+    </div>
+  </div>
+</footer>
+
+<!-- Service add/edit drawer -->
+<div class="overlay" id="svcOverlay"></div>
+<aside class="drawer" id="svcDrawer">
+  <div class="drawer-head">
+    <h3 id="svcFormTitle">➕ Thêm dịch vụ mới</h3>
+    <button class="close-btn" id="closeSvcBtn">&times;</button>
+  </div>
+  <form class="drawer-body" id="svcForm" novalidate>
+    <div class="form-group">
+      <label>Tên dịch vụ <span class="req">*</span></label>
+      <input type="text" id="sTitle" placeholder="VD: Sửa máy giặt mini">
+      <div class="field-error">Vui lòng nhập tên dịch vụ</div>
+    </div>
+    <div class="form-group">
+      <label>Mô tả ngắn <span class="req">*</span></label>
+      <textarea id="sDesc" placeholder="Vài câu mô tả dịch vụ..."></textarea>
+      <div class="field-error">Vui lòng nhập mô tả</div>
+    </div>
+    <div class="form-group">
+      <label>Danh sách công việc (mỗi dòng 1 mục)</label>
+      <textarea id="sItems" placeholder="Thay linh kiện chính hãng&#10;Vệ sinh, kiểm tra an toàn&#10;Báo giá trước khi sửa" style="min-height:110px"></textarea>
+    </div>
+    <div class="form-group">
+      <label>Hình ảnh dịch vụ</label>
+      <div class="img-upload">
+        <div class="img-preview" id="imgPreview">🔧</div>
+        <div class="img-actions">
+          <label class="btn btn-ghost" for="sImage">📷 Tải ảnh lên</label>
+          <input type="file" id="sImage" accept="image/*" hidden>
+          <button type="button" class="btn btn-ghost" id="removeImgBtn">Xóa ảnh</button>
+          <p class="img-hint">Ảnh được nén tự động (tối đa 700px). Khi không có ảnh, sẽ hiển thị biểu tượng emoji bên dưới.</p>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Biểu tượng (khi không có ảnh)</label>
+      <div class="emoji-pick" id="emojiPick"></div>
+    </div>
+    <div id="deleteWrap" class="hidden">
+      <button type="button" class="danger-link" id="deleteSvcBtn">🗑️ Xóa dịch vụ này</button>
+    </div>
+  </form>
+  <div class="drawer-foot">
+    <button type="button" class="btn btn-ghost" id="cancelSvcBtn">Hủy</button>
+    <button type="submit" class="btn btn-primary" form="svcForm" id="saveSvcBtn">Lưu dịch vụ</button>
+  </div>
+</aside>
+
+<!-- Login modal -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-box">
+    <div class="drawer-head">
+      <h3>🔑 Đăng nhập quản trị</h3>
+      <button class="close-btn" id="closeLoginBtn">&times;</button>
+    </div>
+    <form id="loginForm" novalidate>
+      <div class="form-group">
+        <label>Tên đăng nhập</label>
+        <input type="text" id="loginUser" placeholder="admin" autocomplete="username">
+      </div>
+      <div class="form-group">
+        <label>Mật khẩu</label>
+        <input type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password">
+      </div>
+      <div class="login-error" id="loginError">Sai tên đăng nhập hoặc mật khẩu</div>
+      <button type="submit" class="btn btn-primary" style="width:100%;padding:11px;margin-top:4px">Đăng nhập</button>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+
+/* ---------- Config / keys ---------- */
+const BOOKING_KEY  = "dt247_bookings";
+const OVERRIDE_KEY = "dt247_svc_overrides";
+const CUSTOM_KEY   = "dt247_svc_custom";
+const AUTH_KEY     = "dt247_auth";
+const ADMIN_USER   = "admin";
+const ADMIN_PASS   = "admin123";
+
+const EMOJIS = ["🍚","🔥","🔧","🔋","🚲","🏠","💡","⚙️","🪛","🔌","📟","🧰","⚡","🌀","🧹","🛠️"];
+
+const DEFAULT_SERVICES = [
+  {
+    id: "noi-com", icon: "🍚", title: "Sửa nồi cơm điện",
+    desc: "Khôi phục nồi cơm điện cơ và điện tử mọi thương hiệu — Cuckoo, Sharp, Toshiba, Panasonic, Tiger, Hitachi...",
+    items: [
+      "Thay mâm nhiệt, rơ-le nhiệt, cảm biến",
+      "Sửa bo mạch IC điều khiển",
+      "Thay gioăng nắp, nút bấm, dây nguồn",
+      "Vệ sinh, tổng kiểm tra an toàn"
+    ]
+  },
+  {
+    id: "bep-tu", icon: "🔥", title: "Sửa bếp từ / hồng ngoại",
+    desc: "Xử lý các lỗi báo E0–E6, mất nguồn, nóng chậm, quạt yếu, hư mặt kính cho bếp âm và bếp dương.",
+    items: [
+      "Thay IGBT, tụ lọc, cầu chì, diode",
+      "Sửa bo nguồn, bo điều khiển cảm ứng",
+      "Thay quạt làm mát, cuộn dây từ",
+      "Vệ sinh, hiệu chuẩn cảm biến nhiệt"
+    ]
+  },
+  {
+    id: "cam-tay", icon: "🔧", title: "Sửa thiết bị cầm tay",
+    desc: "Máy khoan, máy mài, máy cưa, máy bắt vít, máy hút bụi cầm tay — sửa cơ và điện, thay phụ tùng chính hãng.",
+    items: [
+      "Thay chổi than, rotor, stator, vòng bi",
+      "Sửa công tắc, mạch điều tốc",
+      "Thay đầu kẹp khoan, dây nguồn, ổ cắm",
+      "Cân chỉnh, tra dầu mỡ chuyên dụng"
+    ]
+  },
+  {
+    id: "pin-cam-tay", icon: "🔋", title: "Đóng pin lithium thiết bị cầm tay",
+    desc: "Đóng và phục hồi pin máy khoan, máy vít 12V / 14.4V / 18V / 20V cho Bosch, Makita, Dewalt, Milwaukee, Hitachi...",
+    items: [
+      "Cell Samsung 25R / LG HG2 / Sony VTC",
+      "Cân dòng xả 25A–35A liên tục",
+      "BMS bảo vệ quá dòng, ngắn mạch",
+      "Test dung lượng thực, in báo cáo"
+    ]
+  },
+  {
+    id: "pin-xe-dap", icon: "🚲", title: "Đóng pin lithium xe đạp điện",
+    desc: "Đóng pin 36V / 48V / 60V dung lượng 10Ah – 30Ah cho xe đạp điện, xe máy điện, xe scooter — đi xa hơn, an toàn hơn.",
+    items: [
+      "Cell mới 100% Samsung 30Q / LG M50LT",
+      "BMS thông minh chống quá nhiệt, cân bằng cell",
+      "Vỏ hộp PVC, hộp thép tùy chọn",
+      "Test tải thực tế, bảo hành 6–12 tháng"
+    ]
+  },
+  {
+    id: "khac", icon: "🏠", title: "Sửa thiết bị gia dụng khác",
+    desc: "Quạt điện, máy xay, máy ép, lò vi sóng, ấm siêu tốc, máy lọc nước — nhận sửa đa dạng, kiểm tra miễn phí.",
+    items: [
+      "Chẩn đoán hư hỏng tại chỗ",
+      "Thay linh kiện chính hãng",
+      "Báo giá trước khi sửa",
+      "Bảo hành 1–3 tháng"
+    ]
+  }
+];
+
+/* ---------- State ---------- */
+let services = [];
+let isLoggedIn = false;
+let editingId = null;
+let pickedEmoji = EMOJIS[0];
+let pickedImage = null;
+
+/* ---------- Persistence ---------- */
+function loadCustom() {
+  try { const r = localStorage.getItem(CUSTOM_KEY); return r ? JSON.parse(r) : []; }
+  catch (e) { return []; }
+}
+function saveCustom(list) { localStorage.setItem(CUSTOM_KEY, JSON.stringify(list)); }
+function loadOverrides() {
+  try { const r = localStorage.getItem(OVERRIDE_KEY); return r ? JSON.parse(r) : {}; }
+  catch (e) { return {}; }
+}
+function saveOverrides(o) { localStorage.setItem(OVERRIDE_KEY, JSON.stringify(o)); }
+
+function rebuildServices() {
+  const ov = loadOverrides();
+  const defs = DEFAULT_SERVICES.map(s => ov[s.id] ? Object.assign({}, s, ov[s.id]) : s);
+  services = defs.concat(loadCustom());
+}
+
+/* Phân biệt dịch vụ mặc định vs dịch vụ do admin tự thêm */
+function isDefaultService(id) {
+  return DEFAULT_SERVICES.some(s => s.id === id);
+}
+
+/* ---------- Helpers ---------- */
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, ch => (
+    { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[ch]
+  ));
+}
+function showToast(msg, type) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.className = "toast show" + (type ? " " + type : "");
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove("show"), 3000);
+}
+function setFieldError(id, has) {
+  document.getElementById(id).closest(".form-group").classList.toggle("invalid", has);
+}
+function validatePhone(p) {
+  const clean = p.replace(/[\s.\-()]/g, "");
+  return /^(0\d{9}|\+84\d{9})$/.test(clean);
+}
+function resizeImage(file, maxSize, cb) {
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const img = new Image();
+    img.onload = () => {
+      let w = img.width, h = img.height;
+      if (w > h && w > maxSize) { h = Math.round(h * maxSize / w); w = maxSize; }
+      else if (h > maxSize) { w = Math.round(w * maxSize / h); h = maxSize; }
+      const canvas = document.createElement("canvas");
+      canvas.width = w; canvas.height = h;
+      canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+      cb(canvas.toDataURL("image/jpeg", 0.82));
+    };
+    img.onerror = () => showToast("Không đọc được file ảnh");
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+/* ---------- Auth ---------- */
+function checkAuth() {
+  try { isLoggedIn = sessionStorage.getItem(AUTH_KEY) === "1"; }
+  catch (e) { isLoggedIn = false; }
+}
+function applyAuth() {
+  const acct = document.getElementById("acctArea");
+  if (isLoggedIn) {
+    acct.innerHTML = `<span class="acct-name">👤 admin</span>` +
+      `<button class="btn btn-ghost" id="logoutBtn">Đăng xuất</button>`;
+    document.getElementById("logoutBtn").addEventListener("click", logout);
+  } else {
+    acct.innerHTML = `<button class="btn btn-ghost" id="loginBtn">🔑 Đăng nhập</button>`;
+    document.getElementById("loginBtn").addEventListener("click", openLoginModal);
+  }
+  document.getElementById("addSvcBtn").classList.toggle("hidden", !isLoggedIn);
+  renderServices();
+}
+function openLoginModal() {
+  document.getElementById("loginForm").reset();
+  document.getElementById("loginError").classList.remove("show");
+  document.getElementById("loginOverlay").classList.add("open");
+  setTimeout(() => document.getElementById("loginUser").focus(), 150);
+}
+function closeLoginModal() { document.getElementById("loginOverlay").classList.remove("open"); }
+function handleLogin(e) {
+  e.preventDefault();
+  const u = document.getElementById("loginUser").value.trim();
+  const p = document.getElementById("loginPass").value;
+  if (u === ADMIN_USER && p === ADMIN_PASS) {
+    isLoggedIn = true;
+    try { sessionStorage.setItem(AUTH_KEY, "1"); } catch (e) {}
+    closeLoginModal();
+    applyAuth();
+    showToast("Đăng nhập thành công — bạn có thể thêm/sửa dịch vụ", "success");
+  } else {
+    document.getElementById("loginError").classList.add("show");
+  }
+}
+function logout() {
+  isLoggedIn = false;
+  try { sessionStorage.removeItem(AUTH_KEY); } catch (e) {}
+  closeSvcModal();
+  applyAuth();
+  showToast("Đã đăng xuất");
+}
+
+/* ---------- Render hero visual (đồng bộ ảnh từ dịch vụ) ---------- */
+const HERO_MAP = [
+  { id: "pin-cam-tay", featured: true,  sub: "Cell Samsung / LG / Panasonic chính hãng — bảo hành 6 tháng" },
+  { id: "noi-com",     featured: false, sub: "Cuckoo, Sharp, Toshiba..." },
+  { id: "bep-tu",      featured: false, sub: "Sửa lỗi E0–E6, hỏng IGBT" },
+  { id: "cam-tay",     featured: false, sub: "Khoan, mài, vít, hút bụi" },
+  { id: "pin-xe-dap",  featured: false, sub: "36V / 48V / 60V tùy chọn" }
+];
+
+function renderHeroVisual() {
+  const box = document.getElementById("heroVisual");
+  if (!box) return;
+  box.innerHTML = HERO_MAP.map(tile => {
+    const s = services.find(x => x.id === tile.id) || {};
+    const hasImg = !!s.img;
+    const imgStyle = hasImg ? `style="background-image:url('${s.img}')"` : "";
+    const cls = ["visual-tile", tile.featured ? "featured" : "", hasImg ? "has-img" : ""].filter(Boolean).join(" ");
+    const overlay = hasImg ? `<div class="tile-overlay"></div>` : "";
+    const iconEl = !hasImg ? `<span class="tile-icon" style="font-size:2.4rem;display:block;margin-bottom:6px">${esc(s.icon || "🔌")}</span>` : "";
+    return `
+      <div class="${cls}" ${imgStyle}>
+        ${overlay}
+        ${iconEl}
+        <h5>${esc(s.title || "")}</h5>
+        <p>${esc(tile.sub)}</p>
+      </div>`;
+  }).join("");
+}
+
+/* ---------- Render services ---------- */
+function renderServices() {
+  const grid = document.getElementById("svcGrid");
+  grid.innerHTML = services.map(s => {
+    const imgStyle = s.img ? `style="background-image:url('${s.img}')"` : "";
+    const imgInner = s.img ? "" : esc(s.icon || "🔧");
+    const editBtn = isLoggedIn
+      ? `<button class="svc-edit" data-edit="${s.id}" title="Sửa dịch vụ">✏️</button>` : "";
+    const items = (s.items || []).map(i => `<li>${esc(i)}</li>`).join("");
+    return `
+      <div class="svc">
+        <div class="svc-img" ${imgStyle}>${imgInner}${editBtn}</div>
+        <div class="svc-content">
+          <h3>${esc(s.title)}</h3>
+          <p class="svc-desc">${esc(s.desc)}</p>
+          <ul>${items}</ul>
+          <button class="svc-cta" data-svc="${s.id}">📅 Đặt lịch ngay →</button>
+        </div>
+      </div>`;
+  }).join("");
+
+  grid.querySelectorAll(".svc-cta").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const sel = document.getElementById("bService");
+      if (btn.dataset.svc) sel.value = btn.dataset.svc;
+      document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
+      setTimeout(() => document.getElementById("bName").focus(), 600);
+    });
+  });
+  grid.querySelectorAll(".svc-edit").forEach(btn => {
+    btn.addEventListener("click", () => openEditSvcModal(btn.dataset.edit));
+  });
+
+  populateServiceSelect();
+  renderHeroVisual();
+}
+
+function populateServiceSelect() {
+  const sel = document.getElementById("bService");
+  const current = sel.value;
+  sel.innerHTML = `<option value="">— Chọn dịch vụ —</option>` +
+    services.map(s => `<option value="${s.id}">${esc(s.icon || "🔧")} ${esc(s.title)}</option>`).join("");
+  if (current && services.some(s => s.id === current)) sel.value = current;
+}
+
+/* ---------- Service form (add/edit) ---------- */
+function renderEmojiPicker() {
+  const box = document.getElementById("emojiPick");
+  box.innerHTML = EMOJIS.map(e =>
+    `<button type="button" class="emoji-opt ${e === pickedEmoji ? "sel" : ""}" data-e="${e}">${e}</button>`
+  ).join("");
+  box.querySelectorAll(".emoji-opt").forEach(b => {
+    b.addEventListener("click", () => {
+      pickedEmoji = b.dataset.e;
+      renderEmojiPicker();
+      updateImgPreview();
+    });
+  });
+}
+function updateImgPreview() {
+  const el = document.getElementById("imgPreview");
+  if (pickedImage) {
+    el.style.backgroundImage = `url('${pickedImage}')`;
+    el.textContent = "";
+  } else {
+    el.style.backgroundImage = "";
+    el.textContent = pickedEmoji;
+  }
+}
+function clearSvcFormErrors() {
+  ["sTitle", "sDesc"].forEach(id => setFieldError(id, false));
+}
+function openSvcModal() {
+  document.getElementById("svcDrawer").classList.add("open");
+  document.getElementById("svcOverlay").classList.add("open");
+}
+function closeSvcModal() {
+  document.getElementById("svcDrawer").classList.remove("open");
+  document.getElementById("svcOverlay").classList.remove("open");
+}
+function openAddSvcModal() {
+  if (!isLoggedIn) { openLoginModal(); return; }
+  editingId = null;
+  document.getElementById("svcForm").reset();
+  document.getElementById("svcFormTitle").textContent = "➕ Thêm dịch vụ mới";
+  document.getElementById("saveSvcBtn").textContent = "Lưu dịch vụ";
+  document.getElementById("deleteWrap").classList.add("hidden");
+  pickedEmoji = EMOJIS[0];
+  pickedImage = null;
+  clearSvcFormErrors();
+  renderEmojiPicker();
+  updateImgPreview();
+  openSvcModal();
+  setTimeout(() => document.getElementById("sTitle").focus(), 250);
+}
+function openEditSvcModal(id) {
+  if (!isLoggedIn) { openLoginModal(); return; }
+  const s = services.find(x => x.id === id);
+  if (!s) return;
+  editingId = id;
+  document.getElementById("svcFormTitle").textContent = "✏️ Sửa dịch vụ";
+  document.getElementById("saveSvcBtn").textContent = "Cập nhật";
+  document.getElementById("sTitle").value = s.title;
+  document.getElementById("sDesc").value = s.desc || "";
+  document.getElementById("sItems").value = (s.items || []).join("\n");
+  pickedEmoji = s.icon || EMOJIS[0];
+  pickedImage = s.img || null;
+  clearSvcFormErrors();
+  renderEmojiPicker();
+  updateImgPreview();
+  // chỉ cho xóa dịch vụ tự thêm
+  document.getElementById("deleteWrap").classList.toggle("hidden", isDefaultService(id));
+  openSvcModal();
+}
+
+function collectSvcForm() {
+  const title = document.getElementById("sTitle").value.trim();
+  const desc = document.getElementById("sDesc").value.trim();
+  const itemsRaw = document.getElementById("sItems").value;
+  const items = itemsRaw.split("\n").map(l => l.trim()).filter(Boolean);
+  const errTitle = title === "";
+  const errDesc = desc === "";
+  setFieldError("sTitle", errTitle);
+  setFieldError("sDesc", errDesc);
+  if (errTitle || errDesc) return null;
+  return {
+    title, desc, items,
+    icon: pickedEmoji,
+    img: pickedImage || null
+  };
+}
+
+function handleSvcSubmit(e) {
+  e.preventDefault();
+  if (!isLoggedIn) { showToast("Bạn cần đăng nhập"); return; }
+  const data = collectSvcForm();
+  if (!data) { showToast("Vui lòng kiểm tra các trường bắt buộc"); return; }
+
+  try {
+    if (!editingId) {
+      const list = loadCustom();
+      data.id = "c" + Date.now();
+      list.push(data);
+      saveCustom(list);
+    } else if (!isDefaultService(editingId)) {
+      const list = loadCustom();
+      const i = list.findIndex(x => x.id === editingId);
+      data.id = editingId;
+      if (i >= 0) list[i] = data;
+      saveCustom(list);
+    } else {
+      const ov = loadOverrides();
+      data.id = editingId;
+      ov[editingId] = data;
+      saveOverrides(ov);
+    }
+  } catch (err) {
+    showToast("Lỗi lưu — có thể bộ nhớ đầy hoặc ảnh quá lớn");
+    return;
+  }
+
+  const wasEditing = !!editingId;
+  rebuildServices();
+  renderServices();
+  closeSvcModal();
+  showToast(wasEditing ? `Đã cập nhật "${data.title}"` : `Đã thêm "${data.title}"`, "success");
+}
+
+function handleDeleteSvc() {
+  if (!editingId || isDefaultService(editingId)) return;
+  if (!confirm("Xóa dịch vụ này khỏi danh sách?")) return;
+  const list = loadCustom().filter(x => x.id !== editingId);
+  saveCustom(list);
+  rebuildServices();
+  renderServices();
+  closeSvcModal();
+  showToast("Đã xóa dịch vụ");
+}
+
+/* ---------- Booking form ---------- */
+function saveBooking(data) {
+  let list = [];
+  try { list = JSON.parse(localStorage.getItem(BOOKING_KEY) || "[]"); }
+  catch (e) { list = []; }
+  list.push(data);
+  localStorage.setItem(BOOKING_KEY, JSON.stringify(list));
+}
+function handleBooking(e) {
+  e.preventDefault();
+  const name = document.getElementById("bName").value.trim();
+  const phone = document.getElementById("bPhone").value.trim();
+  const svc = document.getElementById("bService").value;
+  const addr = document.getElementById("bAddress").value.trim();
+  const msg = document.getElementById("bMessage").value.trim();
+  const errName = name.length === 0;
+  const errPhone = phone.length === 0 || !validatePhone(phone);
+  const errSvc = svc === "";
+  setFieldError("bName", errName);
+  setFieldError("bPhone", errPhone);
+  setFieldError("bService", errSvc);
+  if (errName || errPhone || errSvc) { showToast("Vui lòng kiểm tra các trường bắt buộc"); return; }
+  saveBooking({ name, phone, service: svc, address: addr, message: msg, createdAt: new Date().toISOString() });
+  document.getElementById("bookingForm").reset();
+  showToast("✅ Đã gửi yêu cầu! Chúng tôi sẽ gọi lại trong 15 phút.", "success");
+}
+
+/* ---------- Init ---------- */
+function init() {
+  checkAuth();
+  rebuildServices();
+  renderEmojiPicker();
+  applyAuth(); // also renders services
+
+  document.getElementById("bookingForm").addEventListener("submit", handleBooking);
+
+  document.getElementById("addSvcBtn").addEventListener("click", openAddSvcModal);
+  document.getElementById("closeSvcBtn").addEventListener("click", closeSvcModal);
+  document.getElementById("cancelSvcBtn").addEventListener("click", closeSvcModal);
+  document.getElementById("svcOverlay").addEventListener("click", closeSvcModal);
+  document.getElementById("svcForm").addEventListener("submit", handleSvcSubmit);
+  document.getElementById("deleteSvcBtn").addEventListener("click", handleDeleteSvc);
+
+  document.getElementById("sImage").addEventListener("change", e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (!file.type.startsWith("image/")) { showToast("Vui lòng chọn file ảnh"); return; }
+    resizeImage(file, 700, dataUrl => {
+      pickedImage = dataUrl;
+      updateImgPreview();
+      showToast("Đã tải ảnh — nhớ bấm Lưu/Cập nhật");
+    });
+  });
+  document.getElementById("removeImgBtn").addEventListener("click", () => {
+    pickedImage = null;
+    document.getElementById("sImage").value = "";
+    updateImgPreview();
+  });
+
+  document.getElementById("loginForm").addEventListener("submit", handleLogin);
+  document.getElementById("closeLoginBtn").addEventListener("click", closeLoginModal);
+  document.getElementById("loginOverlay").addEventListener("click", e => {
+    if (e.target.id === "loginOverlay") closeLoginModal();
+  });
+
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape") { closeSvcModal(); closeLoginModal(); }
+  });
+}
+
+document.addEventListener("DOMContentLoaded", init);
+</script>
+</body>
+</html>
